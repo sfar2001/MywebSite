@@ -1,0 +1,224 @@
+.quantum {
+  padding: 6rem 2rem;
+  background: var(--section-bg, #1a1a2e);
+  position: relative;
+  overflow: hidden;
+}
+
+.quantum::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 50%, rgba(100, 108, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 1rem 0;
+  color: var(--text-color, #ffffff);
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
+  border-radius: 2px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  margin: 2rem 0 4rem 0;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.workshops h3,
+.qknn h3 {
+  font-size: 2rem;
+  margin: 0 0 2rem 0;
+  color: var(--primary-color, #646cff);
+  font-weight: 600;
+}
+
+.workshopGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.workshopCard {
+  background: var(--card-bg, rgba(255, 255, 255, 0.05));
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid var(--card-border, rgba(100, 108, 255, 0.1));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+}
+
+.workshopCard:hover {
+  border-color: var(--primary-color, #646cff);
+  box-shadow: 0 20px 40px rgba(100, 108, 255, 0.2);
+}
+
+.workshopHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.workshopHeader h4 {
+  font-size: 1.3rem;
+  margin: 0;
+  color: var(--text-color, #ffffff);
+}
+
+.location {
+  background: var(--tag-bg, rgba(100, 108, 255, 0.1));
+  color: var(--primary-color, #646cff);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  border: 1px solid var(--tag-border, rgba(100, 108, 255, 0.3));
+}
+
+.date {
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.workshopCard p {
+  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  line-height: 1.6;
+  margin: 0;
+}
+
+.qknn p {
+  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  line-height: 1.8;
+  margin: 0 0 2rem 0;
+}
+
+.progressSection {
+  margin: 2rem 0;
+}
+
+.progressInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  color: var(--text-color, #ffffff);
+  font-weight: 600;
+}
+
+.progressBar {
+  width: 100%;
+  height: 12px;
+  background: var(--progress-bg, rgba(255, 255, 255, 0.1));
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(100, 108, 255, 0.6);
+}
+
+.quantumVisual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.quantumCircle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 0 40px rgba(100, 108, 255, 0.5);
+  position: relative;
+}
+
+.quantumCircle::before {
+  content: '';
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color, #646cff);
+  opacity: 0.3;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.1;
+  }
+}
+
+@media (max-width: 968px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .quantum {
+    padding: 4rem 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+
+

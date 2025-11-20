@@ -1,0 +1,242 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+.content {
+  text-align: center;
+  color: var(--text-color, #ffffff);
+}
+
+.avatarContainer {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
+  box-shadow: 0 20px 60px rgba(100, 108, 255, 0.4);
+  border: 5px solid var(--border-color, rgba(100, 108, 255, 0.3));
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 150%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  filter: saturate(1.1);
+}
+
+.avatarRing {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 220px;
+  height: 220px;
+  border: 3px solid var(--primary-color, #646cff);
+  border-radius: 50%;
+  border-top-color: transparent;
+  opacity: 0.5;
+}
+
+.name {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  background: linear-gradient(135deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  margin: 0 0 1.5rem 0;
+  min-height: 2rem;
+}
+
+.tagline .typewriter-text {
+  font-weight: 600;
+}
+
+.tagline .cursor {
+  color: var(--primary-color, #646cff);
+  font-weight: 300;
+}
+
+.bio {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  margin: 0 auto 2rem;
+  max-width: 700px;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.primaryButton {
+  background: linear-gradient(135deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
+  color: white;
+  box-shadow: 0 10px 30px rgba(100, 108, 255, 0.3);
+}
+
+.primaryButton:hover {
+  box-shadow: 0 15px 40px rgba(100, 108, 255, 0.4);
+}
+
+.secondaryButton {
+  background: var(--card-bg, rgba(255, 255, 255, 0.05));
+  color: var(--text-color, #ffffff);
+  border: 2px solid var(--primary-color, #646cff);
+  backdrop-filter: blur(10px);
+}
+
+.secondaryButton:hover {
+  background: var(--primary-color, #646cff);
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.socialLink {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--card-bg, rgba(255, 255, 255, 0.05));
+  border: 2px solid var(--card-border, rgba(100, 108, 255, 0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color, #ffffff);
+  font-size: 1.3rem;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+  background: var(--primary-color, #646cff);
+  border-color: var(--primary-color, #646cff);
+  color: white;
+}
+
+.scrollIndicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mouse {
+  width: 30px;
+  height: 50px;
+  border: 2px solid var(--text-secondary, rgba(255, 255, 255, 0.5));
+  border-radius: 15px;
+  position: relative;
+}
+
+.wheel {
+  width: 4px;
+  height: 10px;
+  background: var(--text-secondary, rgba(255, 255, 255, 0.5));
+  border-radius: 2px;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll 2s infinite;
+}
+
+@keyframes scroll {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 6rem 1rem 2rem;
+  }
+
+  .avatar {
+    width: 150px;
+    height: 150px;
+    font-size: 3rem;
+  }
+
+  .avatarRing {
+    width: 170px;
+    height: 170px;
+    top: -10px;
+    left: -10px;
+  }
+
+  .name {
+    font-size: 2.5rem;
+  }
+
+  .tagline {
+    font-size: 1.2rem;
+  }
+
+  .bio {
+    font-size: 1rem;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    padding: 0.8rem 2rem;
+    font-size: 0.9rem;
+  }
+}
+
+

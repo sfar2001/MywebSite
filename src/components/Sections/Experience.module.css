@@ -1,0 +1,220 @@
+.experience {
+  padding: 6rem 2rem;
+  background: var(--section-bg-alt, #16213e);
+  position: relative;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 4rem 0;
+  color: var(--text-color, #ffffff);
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
+  border-radius: 2px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 3rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
+  border-radius: 2px;
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 2rem;
+}
+
+.timelineMarker {
+  position: absolute;
+  left: -2.5rem;
+  top: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.markerDot {
+  width: 1rem;
+  height: 1rem;
+  background: var(--primary-color, #646cff);
+  border-radius: 50%;
+  border: 3px solid var(--section-bg-alt, #16213e);
+  box-shadow: 0 0 0 3px var(--primary-color, #646cff);
+}
+
+.timelineContent {
+  background: var(--card-bg, rgba(255, 255, 255, 0.05));
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--card-border, rgba(100, 108, 255, 0.1));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+}
+
+.timelineItem:hover .timelineContent {
+  border-color: var(--primary-color, #646cff);
+  box-shadow: 0 20px 40px rgba(100, 108, 255, 0.2);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header h3 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color, #ffffff);
+}
+
+.company {
+  color: var(--primary-color, #646cff);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0.25rem 0;
+}
+
+.period {
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.typeBadge {
+  background: var(--tag-bg, rgba(100, 108, 255, 0.1));
+  color: var(--primary-color, #646cff);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  border: 1px solid var(--tag-border, rgba(100, 108, 255, 0.3));
+}
+
+.description {
+  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  line-height: 1.8;
+  margin: 0 0 1.5rem 0;
+}
+
+.achievements {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: var(--card-bg, rgba(255, 255, 255, 0.03));
+  border-radius: 12px;
+  border-left: 3px solid var(--primary-color, #646cff);
+}
+
+.achievements h4 {
+  color: var(--text-color, #ffffff);
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+}
+
+.achievements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.achievements li {
+  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.6;
+}
+
+.achievements li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--primary-color, #646cff);
+  font-weight: bold;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.skillTag {
+  background: var(--tag-bg, rgba(100, 108, 255, 0.1));
+  color: var(--text-color, #ffffff);
+  padding: 0.4rem 0.9rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  border: 1px solid var(--tag-border, rgba(100, 108, 255, 0.3));
+}
+
+@media (max-width: 768px) {
+  .experience {
+    padding: 4rem 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .timeline {
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    left: 1rem;
+  }
+
+  .timelineItem {
+    padding-left: 1.5rem;
+  }
+
+  .timelineMarker {
+    left: -1.75rem;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+}
+
+

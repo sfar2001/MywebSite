@@ -1,0 +1,52 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.gradient1,
+.gradient2,
+.gradient3 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+}
+
+.gradient1 {
+  width: 600px;
+  height: 600px;
+  background: linear-gradient(135deg, #646cff 0%, #535bf2 100%);
+  top: -200px;
+  left: -200px;
+}
+
+.gradient2 {
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  bottom: -150px;
+  right: -150px;
+}
+
+.gradient3 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+[data-theme="light"] .gradient1,
+[data-theme="light"] .gradient2,
+[data-theme="light"] .gradient3 {
+  opacity: 0.15;
+}
+
+
