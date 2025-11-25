@@ -7,8 +7,8 @@ export const personalInfo = {
   bio: "Passionate engineering student specializing in AI, cloud infrastructure, and quantum computing. Currently pursuing advanced studies while leading technical initiatives and developing innovative solutions.",
   tagline: "Engineering Student | AI & Quantum Computing",
   social: {
-    linkedin: "https://linkedin.com/in/adam-sfar",
-    github: "https://github.com/adam-sfar",
+    linkedin: "https://www.linkedin.com/in/sfar-adam-441477267",
+    github: "https://github.com/sfar2001",
     email: "adam.sfar24@gmail.com"
   }
 };
