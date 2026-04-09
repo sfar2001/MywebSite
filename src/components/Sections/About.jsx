@@ -5,7 +5,7 @@ import { languages } from '../../data/skills';
 import { personalInfo } from '../../data/personal';
 import { FaDownload, FaMapMarkerAlt, FaGraduationCap } from 'react-icons/fa';
 import styles from './About.module.css';
-import resumePdf from './../../assets/CV_2026_Adam.pdf';
+import resumePdf from './../../assets/Pro_CV_Adam.pdf';
 
 const About = () => {
   const [ref, , hasIntersected] = useIntersectionObserver();
