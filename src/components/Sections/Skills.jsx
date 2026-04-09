@@ -1,99 +1,111 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { skills } from '../../data/skills';
 import styles from './Skills.module.css';
 
 const Skills = () => {
-  const [ref, isIntersecting, hasIntersected] = useIntersectionObserver();
+  const [ref, , hasIntersected] = useIntersectionObserver();
+  const [activeCategory, setActiveCategory] = useState('programming');
 
   const skillCategories = [
-    { title: 'Programming Languages', skills: skills.programming, key: 'programming' },
-    { title: 'AI & Machine Learning', skills: skills.aiMl, key: 'aiMl' },
-    { title: 'Cloud & DevOps', skills: skills.cloudDevOps, key: 'cloudDevOps' },
-    { title: 'Quantum Computing', skills: skills.quantum, key: 'quantum' },
-    { title: 'Web Technologies', skills: skills.web, key: 'web' }
+    { title: 'Languages', skills: skills.programming, key: 'programming', icon: '{ }' },
+    { title: 'AI / ML', skills: skills.aiMl, key: 'aiMl', icon: 'AI' },
+    { title: 'Cloud & DevOps', skills: skills.cloudDevOps, key: 'cloudDevOps', icon: '<>' },
+    { title: 'Quantum', skills: skills.quantum, key: 'quantum', icon: 'Q+' },
+    { title: 'Web Tech', skills: skills.web, key: 'web', icon: '//' },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 }
-    }
-  };
+  const activeSkills = skillCategories.find((c) => c.key === activeCategory)?.skills || [];
 
   return (
     <section id="skills" className={styles.skills} ref={ref}>
       <div className={styles.container}>
-        <motion.h2
-          className={styles.title}
-          initial={{ opacity: 0, y: -20 }}
+        <motion.div
+          className={styles.sectionHeader}
+          initial={{ opacity: 0, y: 20 }}
           animate={hasIntersected ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          Skills & Technologies
-        </motion.h2>
+          <span className={styles.sectionLabel}>{'// Skills & Technologies'}</span>
+          <h2 className={styles.title}>
+            Tools I use to bring
+            <span className={styles.highlight}> ideas to life</span>
+          </h2>
+        </motion.div>
 
-        <motion.div
-          className={styles.categories}
-          variants={containerVariants}
-          initial="hidden"
-          animate={hasIntersected ? "visible" : "hidden"}
-        >
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.key}
-              className={styles.categoryCard}
-              variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -5 }}
-            >
-              <h3>{category.title}</h3>
-              <div className={styles.skillsGrid}>
-                {category.skills.map((skill, index) => (
+        <div className={styles.layout}>
+          <motion.div
+            className={styles.categoryTabs}
+            initial={{ opacity: 0, x: -30 }}
+            animate={hasIntersected ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {skillCategories.map((category) => (
+              <motion.button
+                key={category.key}
+                className={`${styles.tab} ${activeCategory === category.key ? styles.tabActive : ''}`}
+                onClick={() => setActiveCategory(category.key)}
+                whileHover={{ x: 4 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className={styles.tabIcon}>{category.icon}</span>
+                <span className={styles.tabLabel}>{category.title}</span>
+                <span className={styles.tabCount}>{category.skills.length}</span>
+              </motion.button>
+            ))}
+          </motion.div>
+
+          <motion.div
+            className={styles.skillsDisplay}
+            initial={{ opacity: 0, x: 30 }}
+            animate={hasIntersected ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                className={styles.skillsGrid}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+              >
+                {activeSkills.map((skill, index) => (
                   <motion.div
-                    key={index}
-                    className={styles.skillItem}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={hasIntersected ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ delay: (categoryIndex * 0.1) + (index * 0.05) }}
-                    whileHover={{ scale: 1.1 }}
+                    key={skill.name}
+                    className={styles.skillCard}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    whileHover={{ y: -4, borderColor: 'var(--accent-cyan)' }}
                   >
-                    {skill.icon && <span className={styles.skillIcon}>{skill.icon}</span>}
+                    {skill.icon && <span className={styles.skillEmoji}>{skill.icon}</span>}
                     <div className={styles.skillInfo}>
                       <span className={styles.skillName}>{skill.name}</span>
                       {skill.level && (
-                        <div className={styles.skillBar}>
+                        <div className={styles.skillBarWrap}>
                           <motion.div
-                            className={styles.skillFill}
+                            className={styles.skillBar}
                             initial={{ width: 0 }}
-                            animate={hasIntersected ? { width: `${skill.level}%` } : {}}
-                            transition={{ duration: 1, delay: (categoryIndex * 0.1) + (index * 0.05) }}
+                            animate={{ width: `${skill.level}%` }}
+                            transition={{ duration: 0.8, delay: index * 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
                           />
                         </div>
                       )}
                     </div>
+                    {skill.level && (
+                      <span className={styles.skillPercent}>{skill.level}%</span>
+                    )}
                   </motion.div>
                 ))}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
 export default Skills;
-
-

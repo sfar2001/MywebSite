@@ -1,6 +1,5 @@
 .about {
-  padding: 6rem 2rem;
-  background: var(--section-bg, #1a1a2e);
+  padding: 8rem 2rem;
   position: relative;
 }
 
@@ -9,235 +8,277 @@
   margin: 0 auto;
 }
 
+.sectionHeader {
+  margin-bottom: 4rem;
+}
+
+.sectionLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  display: block;
+  margin-bottom: 1rem;
+}
+
 .title {
-  font-size: 3rem;
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
-  text-align: center;
-  margin: 0 0 4rem 0;
-  color: var(--text-color, #ffffff);
-  position: relative;
-  display: inline-block;
-  width: 100%;
+  line-height: 1.2;
+  color: var(--text-color);
+  max-width: 650px;
+  letter-spacing: -0.02em;
 }
 
-.title::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
-  border-radius: 2px;
+.highlight {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.content {
+/* BENTO GRID */
+.bentoGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  align-items: start;
+  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-rows: auto auto;
+  gap: 1.25rem;
 }
 
-.rightColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.bioCard,
-.educationCard,
-.languagesCard {
-  background: var(--card-bg, rgba(255, 255, 255, 0.05));
-  padding: 2.5rem;
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 20px;
-  border: 1px solid var(--card-border, rgba(100, 108, 255, 0.1));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  transition: all 0.3s ease;
-  height: fit-content;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.bioCard:hover,
-.educationCard:hover,
-.languagesCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-color, #646cff);
-  box-shadow: 0 20px 40px rgba(100, 108, 255, 0.2);
+.card:hover {
+  border-color: var(--card-border-hover);
+  background: var(--card-bg-hover);
+  transform: translateY(-2px);
 }
 
-.bioCard h3,
-.educationCard h3,
-.languagesCard h3 {
-  font-size: 1.8rem;
-  margin: 0 0 1.5rem 0;
-  color: var(--primary-color, #646cff);
-  font-weight: 600;
+/* BIO CARD */
+.bioCard {
+  grid-column: 1;
+  grid-row: 1;
 }
 
-.bioCard p {
-  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
-  line-height: 1.8;
-  margin: 0 0 1.5rem 0;
+.bioText {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem;
 }
 
-.contactInfo {
-  margin: 1.5rem 0;
-  padding: 1.5rem;
-  background: var(--card-bg, rgba(255, 255, 255, 0.03));
-  border-radius: 12px;
-  border-left: 3px solid var(--primary-color, #646cff);
+.locationRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
 }
 
-.contactInfo p {
-  margin: 0.5rem 0;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+.locationIcon {
+  color: var(--accent-cyan);
 }
 
-.downloadButton {
+.downloadBtn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem 2rem;
-  background: linear-gradient(135deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
-  color: white;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-cyan);
+  color: #050505;
   text-decoration: none;
-  border-radius: 12px;
+  border-radius: 100px;
   font-weight: 600;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
-  margin-top: 1rem;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
 }
 
-.downloadButton:hover {
-  box-shadow: 0 10px 30px rgba(100, 108, 255, 0.4);
+.downloadBtn:hover {
+  box-shadow: 0 0 35px rgba(0, 240, 255, 0.3);
+}
+
+/* STATS CARD */
+.statsCard {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.statItem {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+.statNumber {
+  display: block;
+  font-family: 'Sora', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* EDUCATION CARD */
+.educationCard {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.cardLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+.cardLabel svg {
+  color: var(--accent-cyan);
 }
 
 .timeline {
-  position: relative;
-  padding-left: 2rem;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 0.5rem;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--primary-color, #646cff);
-  opacity: 0.3;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .timelineItem {
-  position: relative;
-  margin-bottom: 2rem;
-  padding-left: 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
 }
 
 .timelineIcon {
-  position: absolute;
-  left: -1.5rem;
-  top: 0;
-  width: 3rem;
-  height: 3rem;
-  background: var(--card-bg, rgba(255, 255, 255, 0.05));
-  border: 2px solid var(--primary-color, #646cff);
-  border-radius: 50%;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  z-index: 1;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
 }
 
-.timelineContent h4 {
-  font-size: 1.3rem;
-  margin: 0 0 0.5rem 0;
-  color: var(--text-color, #ffffff);
-}
-
-.institution {
-  color: var(--primary-color, #646cff);
+.timelineDegree {
+  font-size: 1.05rem;
   font-weight: 600;
-  margin: 0.25rem 0;
+  color: var(--text-color);
+  margin: 0 0 0.25rem;
 }
 
-.period {
-  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+.timelineInstitution {
   font-size: 0.9rem;
-  margin: 0.25rem 0;
+  color: var(--accent-cyan);
+  margin: 0 0 0.15rem;
+  font-weight: 500;
 }
 
-.description {
-  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
-  line-height: 1.6;
-  margin: 0.5rem 0 0 0;
+.timelinePeriod {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
 }
 
-.languages {
+/* LANGUAGES CARD */
+.languagesCard {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.langList {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
-.languageItem {
+.langItem {
   width: 100%;
 }
 
-.languageHeader {
+.langHeader {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
-.languageName {
-  color: var(--text-color, #ffffff);
+.langName {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
 }
 
-.proficiency {
-  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
-  font-size: 0.9rem;
+.langLevel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
-.progressBar {
+.langBar {
   width: 100%;
-  height: 10px;
-  background: var(--progress-bg, rgba(255, 255, 255, 0.1));
-  border-radius: 10px;
+  height: 6px;
+  background: var(--progress-bg);
+  border-radius: 100px;
   overflow: hidden;
-  position: relative;
 }
 
-.progressFill {
+.langFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary-color, #646cff) 0%, var(--secondary-color, #535bf2) 100%);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(100, 108, 255, 0.5);
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  border-radius: 100px;
 }
 
-@media (max-width: 968px) {
-  .content {
-    grid-template-columns: 1fr;
-  }
-
-  .rightColumn {
-    gap: 2rem;
-  }
-}
-
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .about {
-    padding: 4rem 1rem;
+    padding: 5rem 1rem;
   }
 
-  .title {
-    font-size: 2rem;
-  }
-
-  .content {
+  .bentoGrid {
     grid-template-columns: 1fr;
   }
-}
 
+  .bioCard,
+  .statsCard,
+  .educationCard,
+  .languagesCard {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}

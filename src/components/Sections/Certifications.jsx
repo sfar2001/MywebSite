@@ -1,52 +1,16 @@
 import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { education } from '../../data/education';
-import { FaCertificate, FaAward, FaGraduationCap } from 'react-icons/fa';
+import { FaCertificate, FaDownload, FaCheckCircle } from 'react-icons/fa';
 import styles from './Certifications.module.css';
 
 const Certifications = () => {
-  const [ref, isIntersecting, hasIntersected] = useIntersectionObserver();
+  const [ref, , hasIntersected] = useIntersectionObserver();
 
-  // Filter certifications from education data
-  const certifications = education.filter(edu => edu.type === 'certification');
-
-  const getIcon = (type) => {
-    switch (type) {
-      case 'certification':
-        return <FaCertificate />;
-      case 'degree':
-        return <FaGraduationCap />;
-      default:
-        return <FaAward />;
-    }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
+  const certifications = education.filter((edu) => edu.type === 'certification');
 
   const handleViewCertificate = (pdfPath, degree) => {
     if (!pdfPath) return;
-
     const downloadLink = document.createElement('a');
     downloadLink.href = pdfPath;
     downloadLink.download = `${degree?.toLowerCase().replace(/\s+/g, '-') || 'certificate'}.pdf`;
@@ -58,93 +22,73 @@ const Certifications = () => {
   return (
     <section id="certifications" className={styles.certifications} ref={ref}>
       <div className={styles.container}>
-        <motion.h2
-          className={styles.title}
-          initial={{ opacity: 0, y: -20 }}
+        <motion.div
+          className={styles.sectionHeader}
+          initial={{ opacity: 0, y: 20 }}
           animate={hasIntersected ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          Certifications & Credentials
-        </motion.h2>
+          <span className={styles.sectionLabel}>{'// Certifications'}</span>
+          <h2 className={styles.title}>
+            Credentials that
+            <span className={styles.highlight}> validate expertise</span>
+          </h2>
+        </motion.div>
 
-        <motion.p
-          className={styles.subtitle}
-          initial={{ opacity: 0 }}
-          animate={hasIntersected ? { opacity: 1 } : {}}
-          transition={{ delay: 0.2 }}
-        >
-          Professional certifications and credentials demonstrating continuous learning and expertise
-        </motion.p>
-
-        <motion.div
-          className={styles.grid}
-          variants={containerVariants}
-          initial="hidden"
-          animate={hasIntersected ? "visible" : "hidden"}
-        >
+        <div className={styles.grid}>
           {certifications.map((cert, index) => (
             <motion.div
               key={cert.id}
               className={styles.card}
-              variants={cardVariants}
-              whileHover={{ 
-                scale: 1.05, 
-                y: -10,
-                rotateY: 5,
-                transition: { duration: 0.3 }
-              }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={hasIntersected ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -6 }}
             >
-              <div className={styles.cardHeader}>
-                <motion.div
-                  className={styles.iconContainer}
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  {getIcon(cert.type)}
-                </motion.div>
-                <div className={styles.badge}>
-                  <span className={styles.badgeText}>Verified</span>
-                </div>
+              <div className={styles.cardIcon}>
+                <FaCertificate />
               </div>
 
-              <div className={styles.cardContent}>
-                <h3>{cert.degree}</h3>
-                <div className={styles.institution}>
-                  <span className={styles.institutionName}>{cert.institution}</span>
-                  <span className={styles.location}>{cert.location}</span>
-                </div>
-                <div className={styles.period}>{cert.period}</div>
-                <p className={styles.description}>{cert.description}</p>
-                
-                <div className={styles.skills}>
-                  <span className={styles.skillsLabel}>Skills Acquired:</span>
-                  <div className={styles.skillTags}>
-                    {cert.skills.map((skill, idx) => (
-                      <span key={idx} className={styles.skillTag}>{skill}</span>
-                    ))}
-                  </div>
-                </div>
+              <div className={styles.verifiedBadge}>
+                <FaCheckCircle />
+                <span>Verified</span>
               </div>
 
-              <div className={styles.cardFooter}>
-                <motion.button
-                  className={styles.viewButton}
-                  type="button"
-                  disabled={!cert.certificatePDF}
-                  onClick={() => handleViewCertificate(cert.certificatePDF, cert.degree)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  View Certificate
-                </motion.button>
+              <h3 className={styles.certName}>{cert.degree}</h3>
+
+              <div className={styles.certMeta}>
+                <span className={styles.institution}>{cert.institution}</span>
+                <span className={styles.separator}>|</span>
+                <span className={styles.period}>{cert.period}</span>
               </div>
+
+              <p className={styles.certDesc}>{cert.description}</p>
+
+              <div className={styles.skillTags}>
+                {cert.skills.slice(0, 4).map((skill, idx) => (
+                  <span key={idx} className={styles.skillTag}>{skill}</span>
+                ))}
+                {cert.skills.length > 4 && (
+                  <span className={styles.skillTag}>+{cert.skills.length - 4}</span>
+                )}
+              </div>
+
+              <motion.button
+                className={styles.downloadBtn}
+                disabled={!cert.certificatePDF}
+                onClick={() => handleViewCertificate(cert.certificatePDF, cert.degree)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <FaDownload />
+                View Certificate
+              </motion.button>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
 export default Certifications;
-

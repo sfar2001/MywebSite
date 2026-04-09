@@ -3,103 +3,119 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import styles from './Quantum.module.css';
 
 const Quantum = () => {
-  const [ref, isIntersecting, hasIntersected] = useIntersectionObserver();
+  const [ref, , hasIntersected] = useIntersectionObserver();
 
   const workshops = [
     {
-      title: "Introduction to Quantum Computing",
-      location: "Tunisia",
-      description: "Comprehensive workshop covering quantum basics, qubits, and quantum gates for beginners.",
-      date: "2023"
+      title: 'Introduction to Quantum Computing',
+      location: 'Tunisia',
+      description: 'Comprehensive workshop covering quantum basics, qubits, and quantum gates for beginners.',
+      date: '2023',
     },
     {
-      title: "Quantum Machine Learning & QKNN",
-      location: "Germany",
-      description: "Advanced workshop on quantum algorithms and Quantum K-Nearest Neighbors development.",
-      date: "2024"
-    }
+      title: 'Quantum Machine Learning & QKNN',
+      location: 'Germany',
+      description: 'Advanced workshop on quantum algorithms and Quantum K-Nearest Neighbors development.',
+      date: '2024',
+    },
   ];
+
+  const orbits = [0, 1, 2];
 
   return (
     <section id="quantum" className={styles.quantum} ref={ref}>
       <div className={styles.container}>
-        <motion.h2
-          className={styles.title}
-          initial={{ opacity: 0, y: -20 }}
-          animate={hasIntersected ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          Quantum Computing Expertise
-        </motion.h2>
+        <div className={styles.layout}>
+          <div className={styles.leftCol}>
+            <motion.div
+              className={styles.sectionHeader}
+              initial={{ opacity: 0, y: 20 }}
+              animate={hasIntersected ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+            >
+              <span className={styles.sectionLabel}>{'// Quantum Computing'}</span>
+              <h2 className={styles.title}>
+                Exploring the
+                <span className={styles.highlight}> quantum frontier</span>
+              </h2>
+              <p className={styles.subtitle}>
+                Developing cutting-edge quantum algorithms and educating the next
+                generation of quantum developers.
+              </p>
+            </motion.div>
 
-        <motion.p
-          className={styles.subtitle}
-          initial={{ opacity: 0 }}
-          animate={hasIntersected ? { opacity: 1 } : {}}
-          transition={{ delay: 0.2 }}
-        >
-          Exploring the quantum realm and developing cutting-edge quantum algorithms
-        </motion.p>
-
-        <div className={styles.content}>
-          <motion.div
-            className={styles.workshops}
-            initial={{ opacity: 0, x: -50 }}
-            animate={hasIntersected ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.3 }}
-          >
-            <h3>Workshops Conducted</h3>
-            <div className={styles.workshopGrid}>
+            <div className={styles.workshopList}>
               {workshops.map((workshop, index) => (
                 <motion.div
                   key={index}
                   className={styles.workshopCard}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={hasIntersected ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.4 + index * 0.1 }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                  whileHover={{ y: -4 }}
                 >
-                  <div className={styles.workshopHeader}>
-                    <h4>{workshop.title}</h4>
-                    <span className={styles.location}>{workshop.location}</span>
+                  <div className={styles.workshopTop}>
+                    <h4 className={styles.workshopTitle}>{workshop.title}</h4>
+                    <span className={styles.locationBadge}>{workshop.location}</span>
                   </div>
-                  <p className={styles.date}>{workshop.date}</p>
-                  <p>{workshop.description}</p>
+                  <span className={styles.workshopDate}>{workshop.date}</span>
+                  <p className={styles.workshopDesc}>{workshop.description}</p>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
 
-          <motion.div
-            className={styles.qknn}
-            initial={{ opacity: 0, x: 50 }}
-            animate={hasIntersected ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.5 }}
-          >
-            <h3>QKNN Development</h3>
-            <p>Working on developing and optimizing Quantum K-Nearest Neighbors algorithm for quantum machine learning applications.</p>
-            <div className={styles.progressSection}>
-              <div className={styles.progressInfo}>
-                <span>Progress</span>
-                <span>80%</span>
+            <motion.div
+              className={styles.progressSection}
+              initial={{ opacity: 0, y: 20 }}
+              animate={hasIntersected ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <div className={styles.progressHeader}>
+                <span className={styles.progressLabel}>QKNN Development</span>
+                <span className={styles.progressValue}>80%</span>
               </div>
               <div className={styles.progressBar}>
                 <motion.div
                   className={styles.progressFill}
                   initial={{ width: 0 }}
                   animate={hasIntersected ? { width: '80%' } : {}}
-                  transition={{ duration: 1.5, delay: 0.7 }}
+                  transition={{ duration: 1.5, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
                 />
               </div>
-            </div>
-            <div className={styles.quantumVisual}>
-              <motion.div
-                className={styles.quantumCircle}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              >
-                <span>QKNN</span>
-              </motion.div>
+            </motion.div>
+          </div>
+
+          <motion.div
+            className={styles.rightCol}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={hasIntersected ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            <div className={styles.atomVisual}>
+              <div className={styles.nucleus}>
+                <span>Q</span>
+              </div>
+              {orbits.map((i) => (
+                <motion.div
+                  key={i}
+                  className={styles.orbit}
+                  style={{
+                    width: `${160 + i * 60}px`,
+                    height: `${160 + i * 60}px`,
+                    borderColor: i === 0 ? 'var(--accent-cyan)' : i === 1 ? 'var(--accent-purple)' : 'var(--accent-magenta)',
+                    opacity: 0.3 - i * 0.08,
+                  }}
+                  animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
+                  transition={{ duration: 15 + i * 5, repeat: Infinity, ease: 'linear' }}
+                >
+                  <div
+                    className={styles.electron}
+                    style={{
+                      background: i === 0 ? 'var(--accent-cyan)' : i === 1 ? 'var(--accent-purple)' : 'var(--accent-magenta)',
+                    }}
+                  />
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -109,5 +125,3 @@ const Quantum = () => {
 };
 
 export default Quantum;
-
-

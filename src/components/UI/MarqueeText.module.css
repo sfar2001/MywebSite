@@ -1,0 +1,35 @@
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.track {
+  display: flex;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.item {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 1rem;
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.item:hover {
+  color: var(--accent-cyan);
+}
+
+.separator {
+  color: var(--accent-cyan);
+  margin: 0 1rem;
+  opacity: 0.4;
+}

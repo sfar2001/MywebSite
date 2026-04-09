@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { projects, projectCategories } from '../../data/projects';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaStar } from 'react-icons/fa';
 import styles from './Projects.module.css';
 
 const Projects = () => {
@@ -11,9 +11,10 @@ const Projects = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
-  const filteredProjects = selectedCategory === 'all'
-    ? projects
-    : projects.filter(project => project.category === selectedCategory);
+  const filteredProjects =
+    selectedCategory === 'all'
+      ? projects
+      : projects.filter((project) => project.category === selectedCategory);
 
   const totalPages = Math.max(1, Math.ceil(filteredProjects.length / itemsPerPage));
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -29,136 +30,149 @@ const Projects = () => {
     }
   }, [currentPage, totalPages]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50, rotateX: -15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotateX: 0,
-      transition: { duration: 0.6 }
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'completed': return 'var(--accent-green)';
+      case 'in-progress': return 'var(--accent-gold)';
+      case 'live': return 'var(--accent-cyan)';
+      default: return 'var(--text-muted)';
     }
   };
 
   return (
     <section id="projects" className={styles.projects} ref={ref}>
       <div className={styles.container}>
-        <motion.h2
-          className={styles.title}
-          initial={{ opacity: 0, y: -20 }}
+        <motion.div
+          className={styles.sectionHeader}
+          initial={{ opacity: 0, y: 20 }}
           animate={hasIntersected ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          Featured Projects
-        </motion.h2>
+          <span className={styles.sectionLabel}>{'// Featured Projects'}</span>
+          <h2 className={styles.title}>
+            Selected work that
+            <span className={styles.highlight}> I am proud of</span>
+          </h2>
+        </motion.div>
 
         <motion.div
           className={styles.filters}
-          initial={{ opacity: 0 }}
-          animate={hasIntersected ? { opacity: 1 } : {}}
+          initial={{ opacity: 0, y: 15 }}
+          animate={hasIntersected ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2 }}
         >
           {projectCategories.map((category) => (
-            <motion.button
+            <button
               key={category.id}
-              className={`${styles.filterButton} ${selectedCategory === category.id ? styles.active : ''}`}
+              className={`${styles.filterBtn} ${selectedCategory === category.id ? styles.filterActive : ''}`}
               onClick={() => setSelectedCategory(category.id)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
               {category.name}
-            </motion.button>
+            </button>
           ))}
         </motion.div>
 
-        <motion.div
-          className={styles.grid}
-          variants={containerVariants}
-          initial="hidden"
-          animate={hasIntersected ? "visible" : "hidden"}
-        >
-          <AnimatePresence mode="wait">
-            {paginatedProjects.map((project) => (
-              <motion.div
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedCategory + currentPage}
+            className={styles.grid}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+          >
+            {paginatedProjects.map((project, index) => (
+              <motion.article
                 key={project.id}
                 className={styles.card}
-                variants={cardVariants}
-                whileHover={{ y: -10, rotateY: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                layout
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -6 }}
               >
-                <div className={styles.imageContainer}>
-                  <div className={styles.imagePlaceholder}>
-                    <span>{project.title}</span>
-                  </div>
-                  <div className={styles.overlay}>
-                    {project.demoLink && project.demoLink !== "False" && (
-                      <motion.a
-                        href={project.demoLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.link}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <FaExternalLinkAlt /> Demo
-                      </motion.a>
+                <div className={styles.cardTop}>
+                  <div className={styles.cardMeta}>
+                    <span
+                      className={styles.statusDot}
+                      style={{ background: getStatusColor(project.status) }}
+                    />
+                    <span className={styles.statusLabel}>{project.status}</span>
+                    {project.featured && (
+                      <span className={styles.featuredTag}>
+                        <FaStar /> Featured
+                      </span>
                     )}
-                    {project.githubLink && project.githubLink !== "False" && (
-                      <motion.a
+                  </div>
+                  <div className={styles.cardLinks}>
+                    {project.githubLink && project.githubLink !== 'False' && (
+                      <a
                         href={project.githubLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={styles.link}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
+                        className={styles.cardLink}
+                        aria-label="GitHub"
                       >
-                        <FaGithub /> Code
-                      </motion.a>
+                        <FaGithub />
+                      </a>
+                    )}
+                    {project.demoLink && project.demoLink !== 'False' && (
+                      <a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.cardLink}
+                        aria-label="Demo"
+                      >
+                        <FaExternalLinkAlt />
+                      </a>
                     )}
                   </div>
-                  {project.featured && (
-                    <div className={styles.featuredBadge}>Featured</div>
-                  )}
                 </div>
-                <div className={styles.content}>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className={styles.technologies}>
-                    {project.technologies.map((tech) => (
-                      <span key={`${project.id}-${tech}`} className={styles.techTag}>{tech}</span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
 
-        {filteredProjects.length > 0 && (
+                <h3 className={styles.cardTitle}>{project.title}</h3>
+                <p className={styles.cardDesc}>{project.description}</p>
+
+                {project.highlights && (
+                  <ul className={styles.highlights}>
+                    {project.highlights.slice(0, 3).map((h, i) => (
+                      <li key={i}>{h}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <div className={styles.techStack}>
+                  {project.technologies.map((tech) => (
+                    <span key={`${project.id}-${tech}`} className={styles.techTag}>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        {filteredProjects.length > itemsPerPage && (
           <div className={styles.pagination}>
             <button
-              className={styles.pageButton}
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              className={styles.pageBtn}
+              onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
             >
-              Previous
+              Prev
             </button>
-            <span className={styles.pageInfo}>
-              Page {currentPage} of {totalPages}
-            </span>
+            <div className={styles.pageIndicators}>
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <button
+                  key={i}
+                  className={`${styles.pageDot} ${currentPage === i + 1 ? styles.pageDotActive : ''}`}
+                  onClick={() => setCurrentPage(i + 1)}
+                />
+              ))}
+            </div>
             <button
-              className={styles.pageButton}
-              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              className={styles.pageBtn}
+              onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
             >
               Next
@@ -171,5 +185,3 @@ const Projects = () => {
 };
 
 export default Projects;
-
-
